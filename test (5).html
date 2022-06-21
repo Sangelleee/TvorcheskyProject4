@@ -1,0 +1,455 @@
+<!-- это комментарии. их не видно при отображении файла в браузере-->
+<html> <!-- тег html обозначает открытие файла html-->
+
+   <head> <!-- head обозначает открытие головной части документа-->
+
+      <!-- title обозначает название документа. Отображается вверху браузера -->
+      <title> 
+      Girly checkers (classic)
+      </title> <!-- закрываем тег title иначе у нас всё последующее будет считаться заголовком-->
+
+      <style>
+
+        body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+        .custom-btn {
+        width: 130px;
+        height: 40px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 25px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+         box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+         7px 7px 20px 0px rgba(0,0,0,.1),
+         4px 4px 5px 0px rgba(0,0,0,.1);
+        outline: none;
+      }
+      .btn-8 {
+        background-color: #f0ecfc;
+      background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
+        line-height: 42px;
+        padding: 0;
+        border: none;
+      }
+      .btn-8 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .btn-8:before,
+      .btn-8:after {
+        position: absolute;
+        content: "";
+        right: 0;
+        bottom: 0;
+        background: #c797eb;
+        /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                    -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+          inset -4px -4px 6px 0 rgba(255,255,255,.5),
+          inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
+        transition: all 0.3s ease;
+      }
+      .btn-8:before{
+         height: 0%;
+         width: 2px;
+      }
+      .btn-8:after {
+        width: 0%;
+        height: 2px;
+      }
+      .btn-8:hover:before {
+        height: 100%;
+      }
+      .btn-8:hover:after {
+        width: 100%;
+      }
+      .btn-8:hover{
+        background: transparent;
+      }
+      .btn-8 span:hover{
+        color: #c797eb;
+      }
+      .btn-8 span:before,
+      .btn-8 span:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        background: #c797eb;
+        /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                    -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+          inset -4px -4px 6px 0 rgba(255,255,255,.5),
+          inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
+        transition: all 0.3s ease;
+      }
+      .btn-8 span:before {
+        width: 2px;
+        height: 0%;
+      }
+      .btn-8 span:after {
+        height: 2px;
+        width: 0%;
+      }
+      .btn-8 span:hover:before {
+        height: 100%;
+      }
+      .btn-8 span:hover:after {
+        width: 100%;
+      }
+
+      canvas {
+        position: absolute;
+        &#8216;
+        top: 50%&#8217;
+      }
+      .canvasA1 {
+        z-index: 1;
+      }
+      .canvasB1 {
+        z-index: 3;
+      }
+
+      .stroke {
+        font: bold 7em Arial, sans-serif;
+        color: #ff99ff;
+        text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, 
+                 #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, 
+                 #cad5e2 5px 5px 0;
+       }
+
+       .stroke1 {
+        font: bold 2em Arial, sans-serif;
+        color: #ff99ff;
+        text-shadow: #cad5e2 1px 1px 0, #cad5e2 2px 2px 0, 
+                 #cad5e2 3px 3px 0, #cad5e2 4px 4px 0, 
+                 #cad5e2 5px 5px 0;
+       }
+
+       /*@import url(https://fonts.googleapis.com/css?family=Righteous);
+        *, *:before, *:after {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          position: relative;
+          }
+
+        html, body {
+          height: 100%;
+          }
+          body {
+            text-align: center;
+            background-color: hsla(239,40%,50%,1);
+            }
+          body:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 0;
+            height: 100%;
+            }
+
+        h1 {
+          display: inline-block;
+          color: white;
+          font-family: 'Righteous', serif;
+          font-size: 12em; 
+          text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+          }
+          h1:after {
+            content: attr(data-shadow);
+            position: absolute;
+            top: .06em; left: .06em;
+            z-index: -1;
+            text-shadow: none;
+            background-image:
+              linear-gradient(
+                45deg,
+                transparent 45%,
+                hsla(48,20%,90%,1) 45%,
+                hsla(48,20%,90%,1) 55%,
+                transparent 0
+                );
+            background-size: .05em .05em;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          
+            animation: shad-anim 15s linear infinite;
+            }
+
+        @keyframes shad-anim {
+          0% {background-position: 0 0}
+          0% {background-position: 100% -100%}
+          }*/
+
+          .outline {
+            border: 3px solid #ff00ff;
+            padding: 0 10px;
+           }
+      </style>
+
+      <script>
+
+        function a(){
+          console.log ("hi")
+          //window.onload = function() {
+          var canvas = document.getElementById("chessboard");
+          var input = document.getElementById("input");
+          var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 1 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1160;
+          canvas.height = 700;
+          // Внешняя рамка для доски
+          context.strokeRect(15, 15, 8*p+15, 8*p+15);
+          // Внутренняя рамка для доски
+          context.strokeRect(20, 20, 8*p+5, 8*p+5);
+          // Закрашиваем внутреннюю область черным цветом
+          context.fillRect(23, 23, 8*p, 8*p);
+          for (i = 0; i < 8; i += 2)
+            for (j = 0; j < 8; j += 2) {
+              context.clearRect(23 + i * p, 23 + j * p, p, p);
+              context.clearRect(23 + (i + 1) * p, 23 + (j + 1) * p, p, p);
+            }
+        }
+
+        function b(){
+          console.log ("hi2")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 2 голодные игры!")
+          // Размеры холста
+           canvas.width  = 1000;
+          canvas.height = 1000;
+          // Рисуем окружность
+          for (i = 3; i < 16; i += 4){ 
+            for (j = 11; j < 16; j += 4) {
+          context.strokeStyle = "#000";
+          context.fillStyle = "#fff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        for (i = 1; i < 14; i += 4){ 
+            for (j = 13; j < 16; j += 4) {
+          context.strokeStyle = "#000";
+          context.fillStyle = "#fff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        }
+
+        function c(){
+          console.log ("hi3")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers2");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 3 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1000;
+          canvas.height = 1000;
+          // Рисуем окружность
+          for (i = 1; i < 14; i += 4){ 
+            for (j = 1; j < 8; j += 4) {
+          context.strokeStyle = "#48494b";
+          context.fillStyle = "#000";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        for (i = 3; i < 16; i += 4){ 
+            for (j = 3; j < 4; j += 4) {
+          context.strokeStyle = "#777b7e";
+          context.fillStyle = "#000";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        }
+
+        function d(){
+          console.log ("hi2")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 2 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1000;
+          canvas.height = 1000;
+          // Рисуем окружность
+          for (i = 3; i < 16; i += 4){ 
+            for (j = 11; j < 16; j += 4) {
+          context.strokeStyle = "#ff66ff";
+          context.fillStyle = "#ffccff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        for (i = 1; i < 14; i += 4){ 
+            for (j = 13; j < 16; j += 4) {
+          context.strokeStyle = "#ff66ff";
+          context.fillStyle = "#ffccff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        }
+
+        function e(){
+          console.log ("hi3")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers2");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 3 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1000;
+          canvas.height = 1000;
+          // Рисуем окружность
+          for (i = 1; i < 14; i += 4){ 
+            for (j = 1; j < 8; j += 4) {
+          context.strokeStyle = "#330099";
+          context.fillStyle = "#6600ff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        for (i = 3; i < 16; i += 4){ 
+            for (j = 3; j < 4; j += 4) {
+          context.strokeStyle = "#330099";
+          context.fillStyle = "#6600ff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(23+i*p/2, 23+j*p/2, p/2-5,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+          }
+        }
+        }
+
+        function f(){
+          console.log ("hi")
+          //window.onload = function() {
+          var canvas = document.getElementById("chessboard");
+          var input = document.getElementById("input");
+          var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 1 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1160;
+          canvas.height = 700;
+          // Внешняя рамка для доски
+          context.fillStyle = "#ff99ff";
+          context.strokeRect(15, 15, 8*p+15, 8*p+15);
+          // Внутренняя рамка для доски
+          context.strokeRect(20, 20, 8*p+5, 8*p+5);
+          // Закрашиваем внутреннюю область черным цветом
+          context.fillRect(23, 23, 8*p, 8*p);
+          for (i = 0; i < 8; i += 2)
+            for (j = 0; j < 8; j += 2) {
+              context.clearRect(23 + i * p, 23 + j * p, p, p);
+              context.clearRect(23 + (i + 1) * p, 23 + (j + 1) * p, p, p);
+            }
+        }          
+
+    </script>
+
+   </head> <!-- тег head также нужно закрыть-->
+
+ <body>  <!-- наконец открываем тело нашего документа. Здесь будет всё его содержание-->
+
+    <!--начиная отсюда вставляем любые текст, заголовки, ссылки и тп-->
+    <h1 style="color:#9933ff" size=34 class="stroke" align="center"> <font face="impact"><em>☆Girly checkers (classic)☆</em><font></h1> <!--h1 служит для обозначения заголовка. 
+    Есть ещё h2, h3 и так до h6. самого маленького заголовка-->
+
+    <!--<h1 data-shadow='dang!'>dang!</h1>-->
+
+    <p>
+    <font face="tahoma">
+      Введите ширину поля: <input id='input' type="text" /><br/>
+    <font>
+      <!--<input id='button' type="button" value="Создать доску" onclick="a()"/>-->
+      <button id='button' type="button" value="Создать доску" onclick="a(), g()" class="custom-btn btn-8"><span>Создать доску</span></button>
+    </p>
+
+    <p>
+      Выберите стиль:<br />
+      <button id='button' type="button" value="Черный и белый" onclick="a(), b(), c()" class="custom-btn btn-8"><span>Классический</span></button>
+      <button id='button' type="button" value="Розовый и голубой" onclick="f(), d(), e()" class="custom-btn btn-8"><span>Розовый</span></button>
+    </p>
+
+    <canvas id='chessboard' class="canvasA1" align="center">Шахматная доска</canvas> 
+
+    <canvas id='checkers' class="canvasB1"></canvas>
+    <canvas id='checkers2' class="canvasB1"></canvas>
+
+    <h2 style="color:#9933ff" size=10 class="stroke1">Правила игры:</h2>
+
+    <p align="left" class="outline"> <font face="tahoma">☆ В игре принимают участие 2 игрока.<br/>
+    ☆ Выбор цвета игроками определяется жребием или по договоренности. Право первого хода принадлежит игроку, который играет белым (светлым) цветом. Ходы осуществляются соперниками поочередно.<br/> 
+    ☆ В начале игры все шашки соперников являются простыми. Простые шашки можно перемещать  только вперед по диагоналям на соседнюю свободную клетку.<br/>  
+    ☆ Взятие шашки соперника производится, переносом через неё своей, в том случае, если она находится на соседней с простой шашкой диагональной клетке и за ней имеется свободное поле. Если после этого хода имеется продолжение для взятия других шашек соперника, ход продолжается. Шашка (шашки) соперника снимается с доски. Взятие шашки соперника может производиться, как вперед, так и назад, и является обязательной, если перед началом игры не договорились об изменении этого правила. <br/>
+    ☆ Если простая шашка дошла до последней горизонтали, она становится «дамкой» и обозначается переворачиванием. Дамка может перемещаться по диагоналям на любое количество свободных клеток.<br/> 
+    ☆ Взятие дамкой шашек соперника может осуществляться через любое количество диагональных клеток, при наличии свободного пространства за «жертвой». <font> </p>
+    
+    <h4 style="color:#9933ff">И пусть удача всегда будет с вами!</h4>
+ </body> <!--тело также следует закрыть, после него уже не вставляем текст и тп-->
+
+</html> <!-- закрывающий тег html обозначает закрытие файла html-->
+
