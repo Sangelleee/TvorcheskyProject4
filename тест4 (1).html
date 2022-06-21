@@ -1,0 +1,336 @@
+<html>
+
+<head>
+  <title>Змейка</title>
+  <style>
+  	html,
+	body {
+	  height: 100%;
+	  margin: 0;
+	}
+	/*Задаём глобальные параметры*/
+	body {
+	  background: black;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+
+	}
+	.body {
+	  color: #fff;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+
+	}
+	/*Делаем границу вокруг игрового поля*/
+	canvas {
+	  border: 3px solid #01579b;
+	}
+
+	.custom-btn {
+	  width: 130px;
+	  height: 40px;
+	  color: #fff;
+	  border-radius: 5px;
+	  padding: 10px 25px;
+	  font-family: 'Lato', sans-serif;
+	  font-weight: 500;
+	  background: transparent;
+	  cursor: pointer;
+	  transition: all 0.3s ease;
+	  position: relative;
+	  display: inline-block;
+	   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+	   7px 7px 20px 0px rgba(0,0,0,.1),
+	   4px 4px 5px 0px rgba(0,0,0,.1);
+	  outline: none;
+	}
+	/* 3 */
+	.btn-3 {
+	  background: blue /*rgb(0,172,238)*/;
+	background: blue /*linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%)*/;
+	  width: 130px;
+	  height: 40px;
+	  line-height: 42px;
+	  padding: 0;
+	  border: none;
+	  
+	}
+	.btn-3 span {
+	  position: relative;
+	  display: block;
+	  width: 100%;
+	  height: 100%;
+	}
+	.btn-3:before,
+	.btn-3:after {
+	  position: absolute;
+	  content: "";
+	  right: 0;
+	  top: 0;
+	   background: rgba(2,126,251,1);
+	  transition: all 0.3s ease;
+	}
+	.btn-3:before {
+	  height: 0%;
+	  width: 2px;
+	}
+	.btn-3:after {
+	  width: 0%;
+	  height: 2px;
+	}
+	.btn-3:hover{
+	   background: transparent;
+	  box-shadow: none;
+	}
+	.btn-3:hover:before {
+	  height: 100%;
+	}
+	.btn-3:hover:after {
+	  width: 100%;
+	}
+	.btn-3 span:hover{
+	   color: rgba(2,126,251,1);
+	}
+	.btn-3 span:before,
+	.btn-3 span:after {
+	  position: absolute;
+	  content: "";
+	  left: 0;
+	  bottom: 0;
+	   background: rgba(2,126,251,1);
+	  transition: all 0.3s ease;
+	}
+	.btn-3 span:before {
+	  width: 2px;
+	  height: 0%;
+	}
+	.btn-3 span:after {
+	  width: 0%;
+	  height: 2px;
+	}
+	.btn-3 span:hover:before {
+	  height: 100%;
+	}
+	.btn-3 span:hover:after {
+	  width: 100%;
+	}
+
+	.outline {
+		color: #fff;
+        border: 3px solid #ff00ff;
+        padding: 0 10px;
+    }
+
+    .sign-wrap-4 {
+    background: #000;
+    text-align: center;
+    padding: 60px 20px;
+	}
+	.sign-wrap-4 .sign_word {
+	    font-size: 40px;
+	    font-weight: bold;
+	    line-height: 50px;
+	    color: blue;
+	    font-family: 'Roboto', sans-serif;
+	    text-transform: uppercase;
+	    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #BFE2FF, 0 0 0.5em #BFE2FF, 0 0 0.1em #BFE2FF;
+	}
+	.sign-wrap-4 .sign_word span {
+	    animation: neon-4 linear infinite 2s;
+	}
+	@keyframes neon-4 {
+	    78% {
+	        color: inherit;
+	        text-shadow: inherit;
+	    }
+	    79%{
+	        color: #0b3960;
+	    }
+	    80% {
+	        text-shadow: none;
+	    }
+	    81% {
+	        color: inherit;
+	        text-shadow: inherit;
+	    }
+	    82% {
+	        color: #0b3960;
+	        text-shadow: none;
+	    }
+	    83% {
+	        color: inherit;
+	        text-shadow: inherit;
+	    }
+	    92% {
+	        color: #0b3960;
+	        text-shadow: none;
+	    }
+	    92.5% {
+	        color: inherit;
+	        text-shadow: inherit;
+	    }
+	}
+
+  </style>
+
+  <script>
+  	function a(){
+  	// Поле, на котором всё будет происходить, — тоже как бы переменная
+	var canvas = document.getElementById('game');
+	// Классическая змейка — двухмерная, сделаем такую же
+	var context = canvas.getContext('2d');
+	// Размер одной клеточки на поле — 16 пикселей
+	var grid = 16;
+	// Служебная переменная, которая отвечает за скорость змейки
+	var count = 0;
+	// А вот и сама змейка
+	var snake = {
+	  // Начальные координаты
+	  x: 160,
+	  y: 160,
+	  // Скорость змейки — в каждом новом кадре змейка смещается по оси Х или У. На старте будет двигаться горизонтально, поэтому скорость по игреку равна нулю.
+	  dx: 16,
+	  dy: 0,
+	  // Тащим за собой хвост, который пока пустой
+	  cells: [],
+	  // Стартовая длина змейки — 4 клеточки
+	  maxCells: 4
+	};
+	// А это — еда. Представим, что это красные яблоки.
+	var apple = {
+	  // Начальные координаты яблока
+	  x: 320,
+	  y: 320
+	};
+
+	// Делаем генератор случайных чисел в заданном диапазоне
+	function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	// Игровой цикл — основной процесс, внутри которого будет всё происходить
+	function loop() {
+	  // Дальше будет хитрая функция, которая замедляет скорость игры с 60 кадров в секунду до 15. Для этого она пропускает три кадра из четырёх, то есть срабатывает каждый четвёртый кадр игры. Было 60 кадров в секунду, станет 15.
+	  requestAnimationFrame(loop);
+	  // Игровой код выполнится только один раз из четырёх, в этом и суть замедления кадров, а пока переменная count меньше четырёх, код выполняться не будет.
+	  if (++count < 4) {
+	    return;
+	  }
+	  // Обнуляем переменную скорости
+	  count = 0;
+	  // Очищаем игровое поле
+	  context.clearRect(0, 0, canvas.width, canvas.height);
+	  // Двигаем змейку с нужной скоростью
+	  snake.x += snake.dx;
+	  snake.y += snake.dy;
+	  // Если змейка достигла края поля по горизонтали — продолжаем её движение с противоположной стороны
+	  if (snake.x < 0) {
+	    snake.x = canvas.width - grid;
+	  }
+	  else if (snake.x >= canvas.width) {
+	    snake.x = 0;
+	  }
+	  // Делаем то же самое для движения по вертикали
+	  if (snake.y < 0) {
+	    snake.y = canvas.height - grid;
+	  }
+	  else if (snake.y >= canvas.height) {
+	    snake.y = 0;
+	  }
+	  // Продолжаем двигаться в выбранном направлении. Голова всегда впереди, поэтому добавляем её координаты в начало массива, который отвечает за всю змейку.
+	  snake.cells.unshift({ x: snake.x, y: snake.y });
+	  // Сразу после этого удаляем последний элемент из массива змейки, потому что она движется и постоянно особождает клетки после себя
+	  if (snake.cells.length > snake.maxCells) {
+	    snake.cells.pop();
+	  }
+	  // Рисуем еду — красное яблоко
+	  context.fillStyle = 'red';
+	  context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+	  // Одно движение змейки — один новый нарисованный квадратик 
+	  context.fillStyle = 'green';
+	  // Обрабатываем каждый элемент змейки
+	  snake.cells.forEach(function (cell, index) {
+	    // Чтобы создать эффект клеточек, делаем зелёные квадратики меньше на один пиксель, чтобы вокруг них образовалась чёрная граница
+	    context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+	    // Если змейка добралась до яблока...
+	    if (cell.x === apple.x && cell.y === apple.y) {
+	      // увеличиваем длину змейки
+	      snake.maxCells++;
+	      // Рисуем новое яблочко
+	      // Помним, что размер холста у нас 400x400, при этом он разбит на ячейки — 25 в каждую сторону
+	      apple.x = getRandomInt(0, 25) * grid;
+	      apple.y = getRandomInt(0, 25) * grid;
+	    }
+	    // Проверяем, не столкнулась ли змея сама с собой
+	    // Для этого перебираем весь массив и смотрим, есть ли у нас в массиве змейки две клетки с одинаковыми координатами 
+	    for (var i = index + 1; i < snake.cells.length; i++) {
+	      // Если такие клетки есть — начинаем игру заново
+	      if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+	      	context.clearRect(0, 0, canvas.width, canvas.height);
+	        // Задаём стартовые параметры основным переменным
+	        snake.x = 160;
+	        snake.y = 160;
+	        snake.cells = [];
+	        snake.maxCells = 4;
+	        snake.dx = grid;
+	        snake.dy = 0;
+	        // Ставим яблочко в случайное место
+	        apple.x = getRandomInt(0, 25) * grid;
+	        apple.y = getRandomInt(0, 25) * grid;
+	      }
+	    }
+	    document.getElementById("demo").innerHTML = snake.maxCells-4;
+	  })
+	}
+
+	// Смотрим, какие нажимаются клавиши, и реагируем на них нужным образом
+	document.addEventListener('keydown', function (e) {
+	  // Дополнительно проверяем такой момент: если змейка движется, например, влево, то ещё одно нажатие влево или вправо ничего не поменяет — змейка продолжит двигаться в ту же сторону, что и раньше. Это сделано для того, чтобы не разворачивать весь массив со змейкой на лету и не усложнять код игры.
+	  // Стрелка влево
+	  // Если нажата стрелка влево, и при этом змейка никуда не движется по горизонтали…
+	  if (e.which === 37 && snake.dx === 0) {
+	    // то даём ей движение по горизонтали, влево, а вертикальное — останавливаем
+	    // Та же самая логика будет и в остальных кнопках
+	    snake.dx = -grid;
+	    snake.dy = 0;
+	  }
+	  // Стрелка вверх
+	  else if (e.which === 38 && snake.dy === 0) {
+	    snake.dy = -grid;
+	    snake.dx = 0;
+	  }
+	  // Стрелка вправо
+	  else if (e.which === 39 && snake.dx === 0) {
+	    snake.dx = grid;
+	    snake.dy = 0;
+	  }
+	  // Стрелка вниз
+	  else if (e.which === 40 && snake.dy === 0) {
+	    snake.dy = grid;
+	    snake.dx = 0;
+	  }
+	});
+
+	requestAnimationFrame(loop);}
+  </script>
+</head>
+
+<body>
+	<div class="sign-wrap-4">
+    <div class="sign_word">Co<span>br</span>a-<span>g</span>a<span>me</span></div>
+</div>
+
+  <canvas id="game" width="400" height="400" class="body"></canvas>
+  <p class="body">score:</p>
+  <p id="demo" class="body">0</p>
+
+  <p>
+  	<button id='button' type="button" class="custom-btn btn-3" onclick="a()"><span>Начать игру</span></button>
+  </p>
+
+</body>
+
+</html>
