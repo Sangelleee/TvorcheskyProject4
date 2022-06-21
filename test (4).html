@@ -1,0 +1,316 @@
+<!-- это комментарии. их не видно при отображении файла в браузере-->
+<html> <!-- тег html обозначает открытие файла html-->
+
+   <head> <!-- head обозначает открытие головной части документа-->
+
+      <!-- title обозначает название документа. Отображается вверху браузера -->
+      <title> 
+      Girly checkers (classic)
+      </title> <!-- закрываем тег title иначе у нас всё последующее будет считаться заголовком-->
+
+      <style>
+        .custom-btn {
+        width: 130px;
+        height: 40px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 25px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+         box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+         7px 7px 20px 0px rgba(0,0,0,.1),
+         4px 4px 5px 0px rgba(0,0,0,.1);
+        outline: none;
+      }
+      .btn-8 {
+        background-color: #f0ecfc;
+      background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
+        line-height: 42px;
+        padding: 0;
+        border: none;
+      }
+      .btn-8 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .btn-8:before,
+      .btn-8:after {
+        position: absolute;
+        content: "";
+        right: 0;
+        bottom: 0;
+        background: #c797eb;
+        /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                    -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+          inset -4px -4px 6px 0 rgba(255,255,255,.5),
+          inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
+        transition: all 0.3s ease;
+      }
+      .btn-8:before{
+         height: 0%;
+         width: 2px;
+      }
+      .btn-8:after {
+        width: 0%;
+        height: 2px;
+      }
+      .btn-8:hover:before {
+        height: 100%;
+      }
+      .btn-8:hover:after {
+        width: 100%;
+      }
+      .btn-8:hover{
+        background: transparent;
+      }
+      .btn-8 span:hover{
+        color: #c797eb;
+      }
+      .btn-8 span:before,
+      .btn-8 span:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        background: #c797eb;
+        /*box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+                    -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+          inset -4px -4px 6px 0 rgba(255,255,255,.5),
+          inset 4px 4px 6px 0 rgba(116, 125, 136, .3);*/
+        transition: all 0.3s ease;
+      }
+      .btn-8 span:before {
+        width: 2px;
+        height: 0%;
+      }
+      .btn-8 span:after {
+        height: 2px;
+        width: 0%;
+      }
+      .btn-8 span:hover:before {
+        height: 100%;
+      }
+      .btn-8 span:hover:after {
+        width: 100%;
+      }
+
+      canvas {
+        position: absolute;
+        &#8216;
+        top: 50%&#8217;
+      }
+      .canvasA1 {
+        z-index: 1;
+      }
+      .canvasB1 {
+        z-index: 3;
+      }
+      .canvas_container {
+         text-align: center;
+      }
+      #canvas_container {
+         width: 50%; 
+         margin: 0 auto;
+      }
+      </style>
+
+      <script>
+
+        function a(){
+          console.log ("hi")
+          //window.onload = function() {
+          var canvas = document.getElementById("chessboard");
+          var input = document.getElementById("input");
+          var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          var canvas_layout = document.getElementById("canvas_container");
+          console.log("Добро пожаловать на 1 голодные игры!")
+          // Размеры холста
+          //canvas.width  = 1160;
+          //canvas.height = 700;
+          canvas_layout.style.height = canvas.height
+          // Внешняя рамка для доски
+          context.strokeRect(15, 15, 8*p+15, 8*p+15);
+          // Внутренняя рамка для доски
+          context.strokeRect(20, 20, 8*p+5, 8*p+5);
+          // Закрашиваем внутреннюю область черным цветом
+          context.fillRect(23, 23, 8*p, 8*p);
+          for (i = 0; i < 8; i += 2)
+            for (j = 0; j < 8; j += 2) {
+              context.clearRect(23 + i * p, 23 + j * p, p, p);
+              context.clearRect(23 + (i + 1) * p, 23 + (j + 1) * p, p, p);
+            }
+        }
+
+        function b(){
+          console.log ("hi2")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 2 голодные игры!")
+          // Размеры холста
+          canvas.width  = 200;
+          canvas.height = 200;
+          // Рисуем окружность 
+          context.strokeStyle = "#000";
+          context.fillStyle = "#ffffff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(p-25,p-25,p-40,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+        }
+
+        function c(){
+          console.log ("hi3")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers2");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 3 голодные игры!")
+          // Размеры холста
+          canvas.width  = 200;
+          canvas.height = 200;
+          // Рисуем окружность 
+          context.strokeStyle = "#000";
+          context.fillStyle = "#00000";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(p-25,p-25,p-40,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+        }
+
+        function d(){
+          console.log ("hi2")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 2 голодные игры!")
+          // Размеры холста
+          canvas.width  = 200;
+          canvas.height = 200;
+          // Рисуем окружность 
+          context.strokeStyle = "#ff66ff";
+          context.fillStyle = "#ffccff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(p,p,p-10,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+        }
+
+        function e(){
+          console.log ("hi3")
+          //window.onload = function() {
+          var canvas = document.getElementById("checkers2");
+          var input = document.getElementById("input");
+          //var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 3 голодные игры!")
+          // Размеры холста
+          canvas.width  = 200;
+          canvas.height = 200;
+          // Рисуем окружность 
+          context.strokeStyle = "#330099";
+          context.fillStyle = "#6600ff";
+          context.lineWidth = 5;
+          context.beginPath();
+          context.arc(p-20,p-20,p-10,0,Math.PI*2,true);
+          context.closePath();
+          context.stroke();
+          context.fill();
+        }
+
+        function f(){
+          console.log ("hi")
+          //window.onload = function() {
+          var canvas = document.getElementById("chessboard");
+          var input = document.getElementById("input");
+          var button = document.getElementById("button");
+          var context = canvas.getContext('2d');
+          var p=input.value;
+          console.log("Добро пожаловать на 1 голодные игры!")
+          // Размеры холста
+          canvas.width  = 1160;
+          canvas.height = 700;
+          // Внешняя рамка для доски
+          context.fillStyle = "#ff99ff";
+          context.strokeRect(15, 15, 8*p+15, 8*p+15);
+          // Внутренняя рамка для доски
+          context.strokeRect(20, 20, 8*p+5, 8*p+5);
+          // Закрашиваем внутреннюю область черным цветом
+          context.fillRect(23, 23, 8*p, 8*p);
+          for (i = 0; i < 8; i += 2)
+            for (j = 0; j < 8; j += 2) {
+              context.clearRect(23 + i * p, 23 + j * p, p, p);
+              context.clearRect(23 + (i + 1) * p, 23 + (j + 1) * p, p, p);
+            }
+        }          
+
+    </script>
+
+   </head> <!-- тег head также нужно закрыть-->
+
+ <body>  <!-- наконец открываем тело нашего документа. Здесь будет всё его содержание-->
+
+    <!--начиная отсюда вставляем любые текст, заголовки, ссылки и тп-->
+    <h1 style="color:#9933ff;">Girly checkers (classic)</h1> <!--h1 служит для обозначения заголовка. 
+    Есть ещё h2, h3 и так до h6. самого маленького заголовка-->
+    <div>
+      <p>
+      Введите ширину поля: <input id='input' type="text" /><br />
+      <!--<input id='button' type="button" value="Создать доску" onclick="a()"/>-->
+      <button id='button' type="button" value="Создать доску" onclick="a()" class="custom-btn btn-8"><span>Создать доску</span></button>
+      </p>
+      <p>
+        Выберите стиль:<br />
+        <button id='button' type="button" value="Черный и белый" onclick="a(), b(), c()" class="custom-btn btn-8"><span>Черный и белый</span></button>
+        <button id='button' type="button" value="Розовый и голубой" onclick="f(), d(), e()" class="custom-btn btn-8"><span>Розовый и фиолетовый</span></button>
+      </p>
+    </div>
+
+    <div class = "canvas_layout">
+        <div id = "canvas_container">
+          <canvas id='chessboard' height = '500' width = '500' class="canvasA1" align="center">Шахматная доска</canvas> 
+        </div>
+        <!--<canvas id='checkers' class="canvasB1"></canvas>-->
+        <!--<canvas id='checkers2' class="canvasB1"></canvas>-->
+    </div>
+
+    <div>
+      <h2 style="color:#9933ff;">Правила игры:</h2>
+
+      <p align="left">• В игре принимают участие 2 игрока. </p>
+      <p align="left">• Выбор цвета игроками определяется жребием или по договоренности. Право первого хода принадлежит игроку, который играет белым (светлым) цветом. Ходы осуществляются соперниками поочередно. </p>
+      <p align="left">• В начале игры все шашки соперников являются простыми. Простые шашки можно перемещать  только вперед по диагоналям на соседнюю свободную клетку.  </p>
+      <p align="left">• Взятие шашки соперника производится, переносом через неё своей, в том случае, если она находится на соседней с простой шашкой диагональной клетке и за ней имеется свободное поле. Если после этого хода имеется продолжение для взятия других шашек соперника, ход продолжается. Шашка (шашки) соперника снимается с доски. Взятие шашки соперника может производиться, как вперед, так и назад, и является обязательной, если перед началом игры не договорились об изменении этого правила. </p>
+      <p align="left">• Если простая шашка дошла до последней горизонтали, она становится «дамкой» и обозначается переворачиванием. Дамка может перемещаться по диагоналям на любое количество свободных клеток. </p>
+      <p align="left">• Взятие дамкой шашек соперника может осуществляться через любое количество диагональных клеток, при наличии свободного пространства за «жертвой».  </p>
+      
+      <h4 style="color:#9933ff">Удачной игры!</h4>
+    </div>
+
+ </body> <!--тело также следует закрыть, после него уже не вставляем текст и тп-->
+
+</html> <!-- закрывающий тег html обозначает закрытие файла html-->
