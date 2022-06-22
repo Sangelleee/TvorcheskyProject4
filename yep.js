@@ -25,7 +25,7 @@ body {
     }
 
      h1 {
-        background-color; #43853d;
+        background-color: #43853d;
         color: white;
         padding: .5em;
         font-family: 'Consolas'
