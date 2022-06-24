@@ -1,0 +1,40 @@
+<html>
+<head>
+
+<script>
+
+function a(){
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let path1 = new Path2D();
+path1.rect(10, 10, 100,100);
+
+var path2 = new Path2D(path1);
+path2.moveTo(220, 60);
+path2.arc(170, 60, 50, 0, 2 * Math.PI);
+
+
+ctx.stroke(path2)
+
+/*let p = new Path2D('M10 10 h 80 v 80 h -80 Z');
+ctx.fill(p);*/
+}
+
+function b(){
+
+	
+	path2.moveTo(100, 560);
+}
+
+</script>
+</head>
+
+<body>
+
+<button id='button' type="button" onclick="a()"><span>тык</span></button>
+<button id='button' type="button" onclick="b()"><span>тык1</span></button>
+<canvas id='canvas' align="center"></canvas> 
+
+</body>
+</html>
